@@ -46,16 +46,8 @@ public class PanelRenderer extends AbstractCellEditor implements TableCellRender
 		panel.removeAll();
 		editor = baseEditor.getTableCellEditorComponent(table, value, isSelected, row, column);
 		panel.add(editor);
-		if (isSelected)
-		{
-			panel.setBackground(table.getSelectionBackground());
-			panel.setForeground(table.getSelectionForeground());
-		}
-		else
-		{
-			panel.setBackground(table.getBackground());
-			panel.setForeground(table.getForeground());
-		}
+		panel.setBackground(table.getSelectionBackground());
+		panel.setForeground(table.getSelectionForeground());
 		return panel;
 	}
 
