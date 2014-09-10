@@ -173,7 +173,10 @@ public class AutoCompleteTextField extends JTextField
 		{
 			super.remove(i, j);
 			insertString(i, s, attributeset);
-			autoComboBox.fireActionEvent();
+			if (autoComboBox != null)
+			{
+				autoComboBox.fireActionEvent();
+			}
 		}
 
 		public void insertString(int i, String s, AttributeSet attributeset)
@@ -200,7 +203,10 @@ public class AutoCompleteTextField extends JTextField
 			super.insertString(0, s2, attributeset);
 			setSelectionStart(j + 1);
 			setSelectionEnd(getLength());
-			autoComboBox.fireActionEvent();
+			if (autoComboBox != null)
+			{
+				autoComboBox.fireActionEvent();
+			}
 		}
 
 		public void remove(int i, int j) throws BadLocationException
@@ -227,7 +233,10 @@ public class AutoCompleteTextField extends JTextField
 			}
 			catch (Exception exception)
 			{}
-			autoComboBox.fireActionEvent();
+			if (autoComboBox != null)
+			{
+				autoComboBox.fireActionEvent();
+			}
 		}
 
 	}
