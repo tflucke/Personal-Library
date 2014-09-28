@@ -17,9 +17,9 @@ public class TiledImageComponent extends ImageComponent
 	{
 		super.paintComponent(g);
 		int width = getWidth(), height = getHeight();
-		for (int x = 0; x < width; x += img.getWidth(null))
+		for (int x = 0; x < width; x += img.getWidth(this))
 		{  
-			for (int y = 0; y < height; y += img.getHeight(null))
+			for (int y = 0; y < height; y += img.getHeight(this))
 			{  
 				g.drawImage(img, x, y, this);  
             }
