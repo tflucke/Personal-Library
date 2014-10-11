@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/swixml.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Swixml"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
