@@ -2,21 +2,16 @@
 
 /*
  * Copyright (c) 2006 Sun Microsystems, Inc. All Rights Reserved.
- *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *
  * -Redistribution of source code must retain the above copyright notice, this
- *  list of conditions and the following disclaimer.
- *
+ * list of conditions and the following disclaimer.
  * -Redistribution in binary form must reproduce the above copyright notice,
- *  this list of conditions and the following disclaimer in the documentation
- *  and/or other materials provided with the distribution.
- *
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
  * Neither the name of Sun Microsystems, Inc. or the names of contributors may
  * be used to endorse or promote products derived from this software without
  * specific prior written permission.
- *
  * This software is provided "AS IS," without a warranty of any kind. ALL
  * EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND WARRANTIES, INCLUDING
  * ANY IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
@@ -28,7 +23,6 @@
  * INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY
  * OF LIABILITY, ARISING OUT OF THE USE OF OR INABILITY TO USE THIS SOFTWARE,
  * EVEN IF SUN HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
- *
  * You acknowledge that this software is not designed, licensed or intended
  * for use in the design, construction, operation or maintenance of any
  * nuclear facility.
@@ -42,20 +36,24 @@ import javax.swing.text.*;
 public class AutoCompleteTextField extends JTextField
 {
 	private static final long serialVersionUID = 8276566114299482586L;
-
+	
 	private List<String> dataList;
-
+	
 	private boolean isCaseSensitive;
-
+	
 	private boolean isStrict;
-
+	
 	private AutoCompleteComboBox autoComboBox;
-
-	public AutoCompleteTextField(List<String> list)
+	private String current;
+	
 	{
 		isCaseSensitive = false;
 		isStrict = true;
 		autoComboBox = null;
+		current = "";
+	}
+	public AutoCompleteTextField(List<String> list)
+	{
 		if (list == null)
 		{
 			throw new IllegalArgumentException("values can not be null");
@@ -67,12 +65,9 @@ public class AutoCompleteTextField extends JTextField
 			return;
 		}
 	}
-
+	
 	AutoCompleteTextField(List<String> list, AutoCompleteComboBox b)
 	{
-		isCaseSensitive = false;
-		isStrict = true;
-		autoComboBox = null;
 		if (list == null)
 		{
 			throw new IllegalArgumentException("values can not be null");
@@ -85,7 +80,7 @@ public class AutoCompleteTextField extends JTextField
 			return;
 		}
 	}
-
+	
 	private void init()
 	{
 		setDocument(new AutoDocument());
@@ -94,24 +89,28 @@ public class AutoCompleteTextField extends JTextField
 			setText(dataList.get(0).toString());
 		}
 	}
-
+	
 	private String getMatch(String s)
 	{
+		if (current.startsWith(s.toLowerCase()))
+		{
+			return current;
+		}
 		for (int i = 0; i < dataList.size(); i++)
 		{
 			String s1 = dataList.get(i).toString();
 			if (s1 != null)
 			{
-				if (!isCaseSensitive && s1.toLowerCase().startsWith(s.toLowerCase()))
+				if (!isCaseSensitive
+				        && s1.toLowerCase().startsWith(s.toLowerCase()))
 					return s1;
-				if (isCaseSensitive && s1.startsWith(s))
+				else if (s1.startsWith(s))
 					return s1;
 			}
 		}
-
 		return null;
 	}
-
+	
 	public void replaceSelection(String s)
 	{
 		AutoDocument _lb = (AutoDocument) getDocument();
@@ -123,34 +122,35 @@ public class AutoCompleteTextField extends JTextField
 				_lb.replace(i, j - i, s, null);
 			}
 			catch (Exception exception)
-			{}
+			{
+			}
 	}
-
+	
 	public boolean isCaseSensitive()
 	{
 		return isCaseSensitive;
 	}
-
+	
 	public void setCaseSensitive(boolean flag)
 	{
 		isCaseSensitive = flag;
 	}
-
+	
 	public boolean isStrict()
 	{
 		return isStrict;
 	}
-
+	
 	public void setStrict(boolean flag)
 	{
 		isStrict = flag;
 	}
-
+	
 	public List<String> getDataList()
 	{
 		return dataList;
 	}
-
+	
 	public void setDataList(List<String> list)
 	{
 		if (list == null)
@@ -163,13 +163,13 @@ public class AutoCompleteTextField extends JTextField
 			return;
 		}
 	}
-
+	
 	private class AutoDocument extends PlainDocument
 	{
 		private static final long serialVersionUID = 5606100219700479405L;
-
+		
 		public void replace(int i, int j, String s, AttributeSet attributeset)
-				throws BadLocationException
+		        throws BadLocationException
 		{
 			super.remove(i, j);
 			insertString(i, s, attributeset);
@@ -178,9 +178,9 @@ public class AutoCompleteTextField extends JTextField
 				autoComboBox.fireActionEvent();
 			}
 		}
-
+		
 		public void insertString(int i, String s, AttributeSet attributeset)
-				throws BadLocationException
+		        throws BadLocationException
 		{
 			if (s == null || "".equals(s))
 				return;
@@ -207,8 +207,9 @@ public class AutoCompleteTextField extends JTextField
 			{
 				autoComboBox.fireActionEvent();
 			}
+			current = s2;
 		}
-
+		
 		public void remove(int i, int j) throws BadLocationException
 		{
 			int k = getSelectionStart();
@@ -232,12 +233,14 @@ public class AutoCompleteTextField extends JTextField
 				setSelectionEnd(getLength());
 			}
 			catch (Exception exception)
-			{}
+			{
+			}
 			if (autoComboBox != null)
 			{
 				autoComboBox.fireActionEvent();
 			}
+			current = s;
 		}
-
+		
 	}
 }

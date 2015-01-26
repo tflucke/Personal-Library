@@ -74,7 +74,7 @@ public class ComponentMover extends MouseAdapter
 	 * passed to the first ancestor of this specified class.
 	 * 
 	 * @param destinationClass
-	 *            the Class of the ancestor component
+	 *            the Class of the ancestor compnent
 	 * @param component
 	 *            the Components to be registered for forwarding drag events to
 	 *            the ancestor Component.

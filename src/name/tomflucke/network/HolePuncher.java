@@ -130,7 +130,7 @@ public class HolePuncher
 	{
 		
 		private InetSocketAddress inetSocketAddress;
-		private int ownPort;
+//		private int ownPort;
 		private FoundSocket foundSocket;
 		
 		public SocketConnector(InetSocketAddress inetSocketAddress,
@@ -139,7 +139,7 @@ public class HolePuncher
 			super(Thread.currentThread().getThreadGroup(),
 			        "HP Socket Connector: " + inetSocketAddress.getHostName());
 			this.inetSocketAddress = inetSocketAddress;
-			this.ownPort = ownPort;
+//			this.ownPort = ownPort;
 			this.foundSocket = foundSocket;
 		}
 		
@@ -151,7 +151,7 @@ public class HolePuncher
 				{
 					Socket s = new Socket();
 					s.setReuseAddress(true);
-					s.bind(new InetSocketAddress(ownPort));
+//					s.bind(new InetSocketAddress(ownPort));
 					s.connect(inetSocketAddress);
 					synchronized (foundSocket)
 					{

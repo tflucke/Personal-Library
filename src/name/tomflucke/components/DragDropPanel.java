@@ -102,12 +102,12 @@ public class DragDropPanel extends JPanel
 	
 	public void setSelectKeys(int mask)
 	{
-		dragger.setSelectKeys(mask);
+		dragger.setAddSelectKeys(mask);
 	}
 
 	public int getSelectKeys()
 	{
-		return dragger.getSelectKeys();
+		return dragger.getAddSelectKeys();
 	}
 
 	public void setDeselectKeys(int mask)
