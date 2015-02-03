@@ -38,11 +38,11 @@ public class HolePuncher
 			synchronized (foundSocket)
 			{
 				socketListener.start();
-				socketToLocal.start();
-				if (!remoteInetSocketAddress.equals(localInetSocketAddress))
-				{
+//				socketToLocal.start();
+//				if (!remoteInetSocketAddress.equals(localInetSocketAddress))
+//				{
 					socketToRemote.start();
-				}
+//				}
 				foundSocket.wait(60000);
 				socketToLocal.interrupt();
 				socketToRemote.interrupt();
